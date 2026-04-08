@@ -1,0 +1,20 @@
+name: AI Life Decision Simulator
+version: 1.0
+description: "A simulated life decision environment with energy, stress, money, happiness, skill, and daily decision-making."
+observation_space:
+  energy: [0, 100]
+  stress: [0, 100]
+  money: [0, null]
+  happiness: [0, 100]
+  skill_level: [0, null]
+  day: [0, 100]
+action_space:
+  - WORK
+  - STUDY
+  - REST
+  - SOCIALIZE
+tasks:
+  easy: "Survive 30 days."
+  medium: "Reach money > 2000, happiness > 50, stress < 70."
+  hard: "Maximize life score = money + happiness + skill_level - stress."
+reward_description: "Reward is computed as money + happiness + skill_level - stress - (100 - energy)."
