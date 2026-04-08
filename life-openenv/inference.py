@@ -48,22 +48,12 @@ def choose_llm_action(state: dict) -> Action:
 
     prompt = build_prompt(state)
     try:
-        response = client.responses.create(
+        response = client.chat.completions.create(
             model=MODEL_NAME,
-            input=prompt,
-            max_output_tokens=50,
+            messages=[{"role": "user", "content": prompt}],
+            max_tokens=50,
         )
-        raw_text = getattr(response, "output_text", None)
-        if raw_text is None:
-            raw_text = ""
-            if getattr(response, "output", None):
-                for item in response.output:
-                    if isinstance(item, dict):
-                        for content in item.get("content", []):
-                            if content.get("type") == "output_text":
-                                raw_text += content.get("text", "")
-        if not raw_text:
-            return FALLBACK_ACTION
+        raw_text = response.choices[0].message.content.strip()
         return parse_action(raw_text)
     except Exception:
         return FALLBACK_ACTION

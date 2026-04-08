@@ -16,6 +16,10 @@ class LifeEnvironment:
         self.state = LifeState()
         return self.state
 
+    def get_state(self) -> LifeState:
+        """Return the current state (OpenEnv compliance)."""
+        return self.state
+
     def get_observation(self) -> dict:
         return self.state.to_dict()
 

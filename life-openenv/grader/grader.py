@@ -25,7 +25,7 @@ class Grader:
                 break
         return history
 
-    def grade(self, history: list[dict], goal_func=None) -> dict:
+    def grade(self, history: list[dict], goal_func=None, score_func=None) -> dict:
         final_state = history[-1]["next_state"] if history else {}
         total_reward = sum(entry["reward"] for entry in history)
         result = {
@@ -35,6 +35,8 @@ class Grader:
         }
         if goal_func is not None:
             result["success"] = goal_func(final_state)
+        if score_func is not None:
+            result["normalized_score"] = score_func(final_state)
         return result
 
     def print_ascii_graphs(self, history: list[dict]) -> None:
