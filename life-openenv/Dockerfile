@@ -21,4 +21,4 @@ ENV MODEL_NAME=gpt-4o-mini
 # Expose any ports if needed (none for this app)
 
 # Default command to run the interface
-CMD ["python", "interface.py"]
+CMD ["python", "app.py"]
